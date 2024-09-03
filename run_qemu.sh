@@ -7,6 +7,6 @@ qemu-system-x86_64 \
   -nographic \
   -m 2G \
   -accel kvm \
-  -kernel output/ironic-python-agent/chi-ipa-debian.kernel \
-  -initrd output/ironic-python-agent/chi-ipa-debian.initramfs \
-  -append "root=/dev/ram0 console=ttyS0 rootpwd=\"${rootpwd}\""
+  -kernel output/ipa-debian12-2023.1.kernel \
+  -initrd output/ipa-debian12-2023.1.initramfs \
+  -append "root=/dev/ram0 console=ttyS0 ipa-inspection-collectors=default,pci-devices,dmi-decode,numa-topology,extra-hardware,logs ipa-collect-lldp=1 rootpwd=\"${rootpwd}\""
