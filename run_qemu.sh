@@ -1,12 +1,7 @@
 #!/bin/bash
 
-echo "generating rootpwd 'chameleon'"
-
-#rootpwd=$(openssl passwd -1 \
-#  -stdin <<< chameleon \
-#  | sed 's/\$/\$\$/g')
-
-rootpwd='$$1$$GElRTAwN$$XJeSlmP8xJy.yqq0ljX/h0'
+echo "generating hashed rootpwd for 'chameleon'"
+rootpwd=$(openssl passwd -1 -stdin <<< chameleon)
 
 qemu-system-x86_64 \
   -nographic \

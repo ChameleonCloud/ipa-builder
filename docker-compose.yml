@@ -14,16 +14,11 @@ services:
         # DIB_DEBOOTSTRAP_CACHE=1 means to CREATE the cache tarball
       - DIB_RELEASE=bookworm
       # use zstd instead of gzip for compression
-      - DIB_IPA_COMPRESS_CMD=zstd
-      - DIB_DEV_USER_USERNAME=devuser
-      - DIB_DEV_USER_PASSWORD=chameleon
-      - DIB_DEV_USER_SHELL=/usr/bin/bash
-      - DIB_DEV_USER_PWDLESS_SUDO=yes
+      # - DIB_IPA_COMPRESS_CMD=zstd
     command: 
       - -o /output/ironic-python-agent/chi-ipa-debian
       - chi_ipa
       - debian-minimal
-      - devuser
 
 volumes:
   ipa_cache:

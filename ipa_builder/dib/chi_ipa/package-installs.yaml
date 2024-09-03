@@ -1,1 +1,5 @@
+# needed to have enough network drivers on debian
 linux-image-generic:
+
+# needed for dynamic-login on debian
+passwd:
