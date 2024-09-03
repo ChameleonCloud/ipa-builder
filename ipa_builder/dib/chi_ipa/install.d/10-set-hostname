@@ -1,0 +1,8 @@
+#!/bin/sh
+
+# ensure cloud-config dir exists
+
+DIB_CHI_IPA_HOSTNAME="${DIB_CHI_IPA_HOSTNAME:-ironic-agent}"
+
+echo "${DIB_CHI_IPA_HOSTNAME}" > /etc/hostname
+sed -i "s/127.0.0.1.*$/127.0.0.1\tlocalhost ${DIB_CHI_IPA_HOSTNAME}/" /etc/hosts
