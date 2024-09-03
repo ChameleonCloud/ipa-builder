@@ -1,0 +1,30 @@
+services:
+  ipa_builder:
+    build:
+      context: ./ipa_builder
+    volumes:
+      - ipa_cache:/cache/
+      - ./output:/output
+    privileged: true
+    environment:
+      - DIB_IMAGE_CACHE=/cache
+      - DIB_DEBIAN_USE_DEBOOTSTRAP_CACHE=1
+        # DIB_DEBIAN_USE_DEBOOTSTRAP_CACHE=1 means to USE the cache tarball
+      - DIB_DEBOOTSTRAP_CACHE=1
+        # DIB_DEBOOTSTRAP_CACHE=1 means to CREATE the cache tarball
+      - DIB_RELEASE=bookworm
+      # use zstd instead of gzip for compression
+      - DIB_IPA_COMPRESS_CMD=zstd
+      - DIB_DEV_USER_USERNAME=devuser
+      - DIB_DEV_USER_PASSWORD=chameleon
+      - DIB_DEV_USER_SHELL=/usr/bin/bash
+      - DIB_DEV_USER_PWDLESS_SUDO=yes
+    command: 
+      - -o /output/ironic-python-agent/chi-ipa-debian
+      - chi_ipa
+      - debian-minimal
+      - devuser
+
+volumes:
+  ipa_cache:
+
