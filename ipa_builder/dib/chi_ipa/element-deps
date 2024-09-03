@@ -1,6 +1,7 @@
 dynamic-login
 
 package-installs
+install-static
 
 ironic-python-agent-ramdisk
 extra-hardware
