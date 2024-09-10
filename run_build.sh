@@ -7,7 +7,6 @@ docker build -t ipa_builder:latest ./ipa_builder
 docker volume create ipa_cache
 
 image_name="ipa-debian12-2023.1"
-#image_name="ipa-debian12-master-beta0903"
 
 docker run --rm \
     --privileged \
