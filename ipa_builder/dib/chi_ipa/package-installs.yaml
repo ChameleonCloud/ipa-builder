@@ -4,8 +4,6 @@ linux-image-generic:
 # on debian, bnx2x drivers missing even with linux-image-generic
 firmware-bnx2x:
 firmware-qlogic: 
-
-# lots of nvidia stuff, among others
 firmware-misc-nonfree:
 
 # needed for dynamic-login on debian

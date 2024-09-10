@@ -3,6 +3,9 @@ dynamic-login
 package-installs
 install-static
 
+mellanox
+disable-nouveau
+
 ironic-python-agent-ramdisk
 extra-hardware
 burn-in
