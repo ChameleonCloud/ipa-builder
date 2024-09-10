@@ -16,4 +16,9 @@ jobs:
         with:
           context: ipa_builder
           push: false
-          tags: chameleoncloud/ipa-builder:latest
+          load: true
+          tags: ipa_builder:latest
+      - name: build ipa agent
+        run: |
+          ./run_build.sh
+
