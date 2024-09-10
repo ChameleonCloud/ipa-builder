@@ -21,4 +21,15 @@ jobs:
       - name: build ipa agent
         run: |
           ./run_build.sh
-
+      - name: upload built images
+        id: artifact-upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: ipa-debian12-2023.1
+          compression-level: 0 # initramfs is already compressed
+          path: |
+            output/ipa-debian12-2023.1.d/dib-manifests/
+            output/ipa-debian12-2023.1.initramfs
+            output/ipa-debian12-2023.1.kernel
+      - name: Output artifact info
+        run:  echo 'Artifact info is ${{ steps.artifact-upload.outputs }}'
