@@ -8,3 +8,5 @@ firmware-misc-nonfree:
 
 # needed for dynamic-login on debian
 passwd:
+
+vim:

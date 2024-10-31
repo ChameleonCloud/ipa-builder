@@ -4,7 +4,8 @@ set -euo pipefail
 
 docker build -t ipa_builder:latest ./ipa_builder
 
-docker volume create ipa_cache
+docker volume create dib_tmp
+docker volume create dib_cache
 
 run_the_build () {
     set -x
@@ -19,17 +20,18 @@ run_the_build () {
     esac
     
 
-    local d_cache_dir="/cache"
-    local d_output_dir="/output"
+        local d_output_dir="/output"
     local image_name="ipa-debian12-2023.1-chi-${build_arch}"
 
     docker run \
         --rm \
         --privileged \
-        --env "DIB_IMAGE_CACHE=${d_cache_dir}" \
-        --env "TMPDIR=${d_cache_dir}" \
+        --env "DIB_SHOW_IMAGE_USAGE=1" \
+        --env "TMPDIR=/dib_tmp" \
+        --env "DIB_IMAGE_CACHE=/dib_cache" \
         --env-file ipa_debian.env \
-        -v "ipa_cache:${d_cache_dir}:rw" \
+        -v "dib_cache:/dib_cache:rw" \
+        -v "dib_tmp:/dib_tmp:rw" \
         -v "$(pwd)/output:${d_output_dir}:rw" \
         ipa_builder:latest \
             -x \
