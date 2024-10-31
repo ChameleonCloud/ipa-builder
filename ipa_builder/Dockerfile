@@ -4,14 +4,15 @@ RUN apt-get update && apt-get install -y \
 	python3-dev \
 	python3-venv \
 	qemu-utils \
+	qemu-user-static \
 	sudo \
 	debootstrap \
-  git \
-  cpio \
-  xz-utils \
-  zstd \
-  dosfstools \
-  genisoimage
+	git \
+	cpio \
+	xz-utils \
+	zstd \
+	dosfstools \
+	genisoimage
 
 RUN mkdir /ipa_builder
 WORKDIR /ipa_builder
