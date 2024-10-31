@@ -1,11 +1,13 @@
-dynamic-login
-
 package-installs
 install-static
+source-repositories
 
 mellanox
 disable-nouveau
 
-ironic-python-agent-ramdisk
 extra-hardware
 burn-in
+
+ironic-python-agent-ramdisk
+
+dynamic-login 
