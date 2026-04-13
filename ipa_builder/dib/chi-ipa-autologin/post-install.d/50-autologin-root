@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "${DIB_DEBUG_TRACE:-0}" -gt 0 ]; then
+    set -x
+fi
+set -eu
+set -o pipefail
+
+# serial console
+mkdir -p /etc/systemd/system/serial-getty@.service.d
+cat << EOF > /etc/systemd/system/serial-getty@.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --keep-baud 115200,38400,9600 --autologin root --noclear %I \$TERM
+EOF
+
+# virtual console
+mkdir -p /etc/systemd/system/getty@tty1.service.d
+cat << EOF > /etc/systemd/system/getty@tty1.service.d/override.conf
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --autologin root --noclear %I \$TERM
+EOF

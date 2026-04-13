@@ -20,8 +20,8 @@ run_the_build () {
     esac
     
 
-        local d_output_dir="/output"
-    local image_name="ipa-debian12-2023.1-chi-${build_arch}"
+    local d_output_dir="/output"
+    local image_name="ipa-debian12-2023.1-chi-${build_arch}-debug"
 
     docker run \
         --rm \
@@ -41,6 +41,7 @@ run_the_build () {
             -o "${d_output_dir}/${image_name}" \
             -a "${build_arch}" \
             chi_ipa \
+            "chi-ipa-autologin" \
             debian-minimal
 
     set +x
