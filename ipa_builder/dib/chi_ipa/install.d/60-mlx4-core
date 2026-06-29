@@ -1,0 +1,3 @@
+#!/bin/sh
+
+echo "mlx4_core" >> /etc/modules
