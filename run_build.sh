@@ -27,6 +27,7 @@ run_the_build () {
         --rm \
         --privileged \
         --env "DIB_SHOW_IMAGE_USAGE=1" \
+        --env DIB_QUIET \
         --env "TMPDIR=/dib_tmp" \
         --env "DIB_IMAGE_CACHE=/dib_cache" \
         --env-file ipa_debian.env \
