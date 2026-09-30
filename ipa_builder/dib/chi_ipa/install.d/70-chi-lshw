@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "${DIB_DEBUG_TRACE:-0}" -gt 0 ]; then
+    set -x
+fi
+set -eu
+set -o pipefail
+
+# Debian's lshw is a 2021 snapshot that reads link modes with the legacy
+# ETHTOOL_GSET ioctl, so it reports NICs faster than 40Gb/s as 40Gb/s.
+# B.02.20 uses ETHTOOL_GLINKSETTINGS, but still tops out at 100Gb/s.
+# https://github.com/lyonel/lshw/commit/4b78fe716c81e404de280043e046db52632168df#diff-85d3a777dab67574b1fe8701cf52c17d05a92e394e928fc7b6345297207bee63
+LSHW_DIR=/tmp/lshw
+
+# Build only the binary, skipping the data files the Makefile would wget.
+# lshw reads VERSION from git, which isn't in the image, so keep it in sync
+# with the ref in source-repository-lshw. NO_VERSION_CHECK skips a DNS lookup
+# for newer releases.
+make -C "$LSHW_DIR/src" -j"$(nproc)" NO_VERSION_CHECK=1 VERSION=B.02.20 lshw
+
+# /usr/local/sbin comes before the distro package's /usr/bin/lshw in PATH.
+install -m 0755 "$LSHW_DIR/src/lshw" /usr/local/sbin/lshw
+rm -rf "$LSHW_DIR"

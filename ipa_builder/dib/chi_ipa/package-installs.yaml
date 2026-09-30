@@ -10,3 +10,9 @@ firmware-misc-nonfree:
 passwd:
 
 vim:
+
+# needed to build lshw from source, see install.d/70-chi-lshw
+g++:
+  build-only: True
+# not build-only: removing make would also remove dkms, which depends on it
+make:
