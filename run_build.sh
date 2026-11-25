@@ -11,6 +11,7 @@ run_the_build () {
     set -x
 
     local build_arch="${1:-amd64}"
+    local release="${2:-2026.1}"
 
     case "$build_arch" in
         "amd64"|"arm64")
@@ -18,10 +19,14 @@ run_the_build () {
         *)
             echo "unknown build arch" && exit 1 ;;
     esac
+
+    if [ ! -f "ipa_${release}.env" ]; then
+        echo "unknown release ${release}" && exit 1
+    fi
     
 
         local d_output_dir="/output"
-    local image_name="ipa-debian12-2023.1-chi-${build_arch}"
+    local image_name="ipa-debian12-${release}-chi-${build_arch}"
 
     docker run \
         --rm \
@@ -31,6 +36,7 @@ run_the_build () {
         --env "TMPDIR=/dib_tmp" \
         --env "DIB_IMAGE_CACHE=/dib_cache" \
         --env-file ipa_debian.env \
+        --env-file "ipa_${release}.env" \
         -v "dib_cache:/dib_cache:rw" \
         -v "dib_tmp:/dib_tmp:rw" \
         -v "$(pwd)/output:${d_output_dir}:rw" \
