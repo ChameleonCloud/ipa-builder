@@ -8,6 +8,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        release: ["2023.1", "2024.1", "2025.1", "2026.1"]
+        arch: [amd64, arm64]
         include:
           - arch: amd64
             runner: ubuntu-24.04
@@ -20,17 +22,17 @@ jobs:
         env:
           DIB_QUIET: 0 # stream DIB output to the runner log as well as the logfile
         run: |
-          ./run_build.sh ${{ matrix.arch }}
+          ./run_build.sh ${{ matrix.arch }} ${{ matrix.release }}
       - name: upload built images
         id: artifact-upload
         uses: actions/upload-artifact@v4
         with:
-          name: ipa-debian12-2023.1-chi-${{ matrix.arch }}
+          name: ipa-debian12-${{ matrix.release }}-chi-${{ matrix.arch }}
           compression-level: 0 # initramfs is already compressed
           if-no-files-found: error
           path: |
-            output/ipa-debian12-2023.1-chi-${{ matrix.arch }}.d/dib-manifests/
-            output/ipa-debian12-2023.1-chi-${{ matrix.arch }}.initramfs
-            output/ipa-debian12-2023.1-chi-${{ matrix.arch }}.kernel
+            output/ipa-debian12-${{ matrix.release }}-chi-${{ matrix.arch }}.d/dib-manifests/
+            output/ipa-debian12-${{ matrix.release }}-chi-${{ matrix.arch }}.initramfs
+            output/ipa-debian12-${{ matrix.release }}-chi-${{ matrix.arch }}.kernel
       - name: Output artifact info
         run:  echo 'Artifact info is ${{ steps.artifact-upload.outputs }}'
